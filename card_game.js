@@ -9,7 +9,23 @@ function getInput(prompt) {
 }
 
 // YOUR CODE STARTS HERE!!
-
+function buildDeck(){
+  let suits = ["clubs", "hearts", "diamonds", "spades"]
+  let ranks = ["Ace", "2","3","4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
+  let deck = []
+  let i = 0
+  for(r = 0; r < ranks.length; r++){
+    for(s = 0; s < suits.length; s++){
+      deck.push({
+      suit: suits[s],
+      ranks: ranks[r],
+      value: i
+      })
+    }
+  }
+  return deck
+}
+console.log(buildDeck())
 // STEP ONE - Building A Deck.
 
 //buildDeck.push and position array
