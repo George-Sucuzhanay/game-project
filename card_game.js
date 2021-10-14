@@ -44,18 +44,20 @@ console.log(buildDeck())
 
 function shuffle(deck){
   let shuffledDeck = deck
-  let currentIndex = deck.length;
-  let temporaryValue = None
-  let randomIndex = None
+  let currentIndex = deck.length
+  let temporaryValue;
+  let randomIndex;
   while(currentIndex !=0){
-    Math.random() * (currentIndex - 0) + 0
+    randomIndex = Math.floor(Math.random() * (currentIndex))
     temporaryValue = shuffledDeck[currentIndex]
+    shuffledDeck[currentIndex] = shuffledDeck[randomIndex]
     shuffledDeck[randomIndex] = temporaryValue
     currentIndex = currentIndex - 1 
   }
   return shuffledDeck
 }
-shuffle()
+// shuffle(buildDeck())
+
 // STEP TWO - Shuffling your deck
 // 1. use a function declaration to create a function called shuffle that takes deck as an argument.
 // 2. Inside this function create a variable called "shuffledDeck" that takes deck as its value.
@@ -75,7 +77,7 @@ function greet(){
   console.log("Nice to meet you " + name)
   return name
 }
-greet()
+// greet()
 
 // STEP THREE - Greeting the player
 // 1. Declare a function called greet()
@@ -84,32 +86,32 @@ greet()
 // 4. return name
 // 5. Done.
 
-function compare(card1, card2, deck){
-  return deck.value[card1] - deck.value[card2]
+function compare(card1, card2){
+  return card1.value - card2.value
 
 }
-console.log(compare('spades', 'diamond'))
+// console.log(compare('spades', 'diamond'))
 // STEP FOUR - comparing cards
 // 1. declare a function called compare that takes two cards as arguments
 // 2. return the value property of the first card minus the value property of the second card.
 
 function guess(card1, card2){
-  console.log(deck.ranks[card1])
-  console.log(deck.suit[card1])
+  console.log(card1.ranks)
+  console.log(card1.suit)
   let input = getInput("What do you think the next card will be higher or lower than ")
   if (input == "h" ){
-    return true
+    return compare(card1,card2) < 0
   }
   if (input == "l"){
-    return false
+    return compare(card1,card2) > 0
   }
   else{
     alert("You need to guess either h or l. Unfortunately, you got no point this round.")
     return false
   }
-
 }
-console.log('spades', 'diamond')
+// console.log(guess('spades', 'diamond'))
+
 // STEP FIVE - Respond to User Guess
 // 1. declare a function called guess that takes two cards as arguments
 // 2. console.log the rank and suit of the current card
@@ -120,27 +122,24 @@ console.log('spades', 'diamond')
 // 7. If input doesn't equal h or l, tell the user that they need to guess either h or l and that they get no points for this round, then return false.
 
 function playGame(){
-  let deck = shuffle(deck)
+  let deck = shuffle(buildDeck())
   let playerName = greet()
   let score = 0
-  let currentCard = deck.pop(deck.length-1)
-  while(score < 5 && score < deck){
-    let nextCard = deck.pop(deck.length-1)
-    if (guess() = true) {
+  let currentCard = deck.pop()
+  while(score < 5 && score < deck.length){
+    let nextCard = deck.pop()
+    if (guess(currentCard, nextCard) == true) {
       score += 1
-      alert("Congratulations! Your score is " + score)
+      // return alert("Congratulations! Your score is " + score)
+      console.log("Congratulations! Your score is " + score)
     }
     else{
-      alert("You are wrong, and got no points :(")
+      // return alert("You are wrong, and got no points :(")
+      console.log("You are wrong, and got no points :(")
     }
-    nextCard = currentCard
+    currentCard = nextCard
   }
-  if (deck.length == 0){
-    alert("You are out of cards and lost")
-  }
-  else{
-    alert("You have won!")
-  }
+  deck.length == 0 ? console.log("You are out of cards and lost"): console.log("You have won!")
 }
 playGame()
 // STEP SIX - Let's play!
